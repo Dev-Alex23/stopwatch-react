@@ -1,0 +1,77 @@
+:root {
+  --bg-color: #000000;
+  --start-btn-bg-color: rgba(48, 209, 88, 0.2);
+  --start-btn-text-color: rgb(48, 209, 88);
+  --start-btn-active-color: rgba(48, 209, 88, 0.1);
+  --stop-btn-bg-color: rgba(255, 69, 58, 0.2);
+  --stop-btn-text-color: rgb(255, 69, 58);
+  --stop-btn-active-color: rgba(255, 69, 58, 0.15);
+  --reset-btn-bg-color: #49494c;
+  --reset-btn-text-color: #fff;
+  --reset-btn-active-color: #222223;
+  --lap-btn-bg-color: rgba(73, 73, 76, 0.5);
+}
+
+.stopwatch {
+  height: 715px;
+  width: 331px;
+  background-color: var(--bg-color);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.timer--container {
+  margin-top: 3rem;
+}
+
+p.time-display {
+  font-variant-numeric: tabular-nums;
+  color: white;
+  font-weight: 100;
+  font-size: 70px;
+  text-align: center;
+  padding-top: 11.1825rem;
+}
+
+.controller-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6875rem;
+  margin-top: 6.25rem;
+}
+
+.primary-button {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  outline: var(--bg-color) solid 1.5px;
+  outline-offset: -3px;
+}
+
+.primary-button:focus {
+  outline: var(--bg-color) solid 1.5px;
+  outline-offset: -3px;
+}
+
+.lap-button {
+  color: #fff;
+  background-color: var(--lap-btn-bg-color);
+}
+.start-button {
+  color: var(--start-btn-text-color);
+  background-color: var(--start-btn-bg-color);
+}
+
+.stop-button {
+  background-color: var(--stop-btn-bg-color);
+  color: var(--stop-btn-text-color);
+}
+
+.reset-button {
+  background-color: var(--reset-btn-bg-color);
+  color: var(--reset-btn-text-color);
+}

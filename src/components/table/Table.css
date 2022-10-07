@@ -1,0 +1,35 @@
+.lap-record__container {
+  max-width: 307px;
+  margin: 0 auto;
+  overflow: auto;
+  max-height: 337px;
+  border-top: 0.5px solid var(--reset-btn-bg-color);
+  scrollbar-color: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-weight: 400;
+  color: white;
+}
+table tr {
+  border-bottom: 0.5px solid var(--reset-btn-bg-color);
+  height: 34px;
+}
+td {
+  text-align: left;
+}
+
+table tr td:nth-child(2) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.shortest-lap {
+  color: var(--start-btn-text-color);
+}
+.longest-lap {
+  color: var(--stop-btn-text-color);
+}
