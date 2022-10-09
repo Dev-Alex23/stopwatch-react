@@ -59,11 +59,22 @@ p.time-display {
 
 .lap-button {
   color: #fff;
+  background-color: var(--reset-btn-bg-color);
+}
+.lap-button:disabled {
+  color: #fff;
   background-color: var(--lap-btn-bg-color);
 }
+.lap-button:active {
+  background-color: var(--reset-btn-active-color);
+}
+
 .start-button {
   color: var(--start-btn-text-color);
   background-color: var(--start-btn-bg-color);
+}
+.start-button:active {
+  background-color: var(--start-btn-active-color);
 }
 
 .stop-button {
@@ -71,9 +82,17 @@ p.time-display {
   color: var(--stop-btn-text-color);
 }
 
+.stop-button:active {
+  background-color: var(--stop-btn-active-color);
+}
+
 .reset-button {
   background-color: var(--reset-btn-bg-color);
   color: var(--reset-btn-text-color);
+}
+
+.reset-button:active {
+  background-color: var(--reset-btn-active-color);
 }
 
 /* Table */

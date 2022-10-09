@@ -8,9 +8,6 @@ const Stopwatch = () => {
   const [laps, setLaps] = useState([]);
 
   let interval;
-  const lapData = {
-    lap: [...laps],
-  };
 
   useEffect(() => {
     if (isTimerRunning) {
@@ -23,20 +20,10 @@ const Stopwatch = () => {
     return () => clearInterval(interval);
   }, [isTimerRunning]);
 
-  useEffect(() => {
-    if (elasptime > 0) {
-      const currentLap = lapData.lap[0] ?? { lapNumber: 1 };
-    }
-  }, [elasptime]);
-
-  const reset = () => {
+  const resetLaps = () => {
     setElasptime(0);
     setIsTimerRunning(false);
     setLaps([]);
-  };
-
-  const startStopwatch = () => {
-    setIsTimerRunning(true);
   };
 
   const insertLaps = () => {
@@ -49,41 +36,18 @@ const Stopwatch = () => {
   };
 
   const toggleTimer = () => setIsTimerRunning(!isTimerRunning);
-  const lapDisable = !isTimerRunning && elasptime === 0;
+  const isLapDisabled = !isTimerRunning && elasptime === 0;
   const startStopButtonText = isTimerRunning ? "Stop" : "Start";
   const lapResetButtonText = !isTimerRunning && elasptime > 0 ? "Reset" : "Lap";
-  console.log(lapDisable);
+  const startStopClass = isTimerRunning
+    ? "primary-button stop-button"
+    : "primary-button start-button";
+  const lapResetClass =
+    isTimerRunning || elasptime === 0
+      ? "primary-button lap-button"
+      : "primary-button reset-button";
 
-  const renderButtons = () => {
-    switch (isTimerRunning) {
-      case false:
-        return (
-          <>
-            <button className='primary-button lap-button' onClick={reset}>
-              Reset
-            </button>
-            <button className='primary-button start-button' onClick={startStopwatch}>
-              Start
-            </button>
-          </>
-        );
-
-      case true:
-        return (
-          <>
-            <button className='primary-button lap-button' onClick={insertLaps}>
-              Lap
-            </button>
-            <button
-              className='primary-button stop-button'
-              onClick={() => setIsTimerRunning(false)}
-            >
-              Stop
-            </button>
-          </>
-        );
-    }
-  };
+  console.log(isLapDisabled);
 
   return (
     <section className='stopwatch'>
@@ -93,13 +57,16 @@ const Stopwatch = () => {
         </div>
         <div className='stopwatch__content controller-container'>
           {
-            <button className='primary-button' disabled={lapDisable}>
+            <button
+              className={lapResetClass}
+              disabled={isLapDisabled}
+              onClick={isTimerRunning ? insertLaps : resetLaps}
+            >
               {lapResetButtonText}
             </button>
           }
           {
-            <button className='primary-button' onClick={toggleTimer}>
-              {" "}
+            <button className={startStopClass} onClick={toggleTimer}>
               {startStopButtonText}
             </button>
           }
