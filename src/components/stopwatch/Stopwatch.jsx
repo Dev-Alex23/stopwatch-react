@@ -3,13 +3,20 @@ import { getFormattedTime } from "../utils";
 import "./Stopwatch.css";
 
 const Stopwatch = () => {
+  const intialData = {
+    laps: [],
+    totalLapTime: 0,
+    time: 0,
+    minLap: [],
+    maxLap: [],
+  };
+
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [elasptime, setElasptime] = useState(0);
-  const [laps, setLaps] = useState([]);
-
-  let interval;
+  const [lapData, setLapData] = useState(intialData);
 
   useEffect(() => {
+    let interval;
     if (isTimerRunning) {
       let startTime = Date.now() - elasptime;
       interval = setInterval(() => {
@@ -20,22 +27,39 @@ const Stopwatch = () => {
     return () => clearInterval(interval);
   }, [isTimerRunning]);
 
+  useEffect(() => {
+    if (elasptime > 0) {
+      setLapData((prevLapData) => ({
+        ...prevLapData,
+        time: elasptime - lapData.totalLapTime,
+      }));
+    }
+  }, [elasptime]);
+
+  const addLaps = () => {
+    setLapData((prevLapData) => ({
+      ...prevLapData,
+      laps: [
+        ...prevLapData.laps,
+        {
+          currentLapNumber: lapData.laps.length + 1,
+          currentLapTime: elasptime - lapData.totalLapTime,
+        },
+      ],
+      totalLapTime: elasptime,
+      time: 0,
+    }));
+  };
+
   const resetLaps = () => {
     setElasptime(0);
     setIsTimerRunning(false);
-    setLaps([]);
+    setLapData(intialData);
   };
 
-  const insertLaps = () => {
-    let newLap = laps.reduce((prevValue, currentValue) => {
-      return prevValue + currentValue;
-    }, 0);
-    setLaps((prevLaps) => {
-      return [...prevLaps, elasptime - newLap];
-    });
+  const toggleTimer = () => {
+    setIsTimerRunning(!isTimerRunning);
   };
-
-  const toggleTimer = () => setIsTimerRunning(!isTimerRunning);
   const isLapDisabled = !isTimerRunning && elasptime === 0;
   const startStopButtonText = isTimerRunning ? "Stop" : "Start";
   const lapResetButtonText = !isTimerRunning && elasptime > 0 ? "Reset" : "Lap";
@@ -47,20 +71,18 @@ const Stopwatch = () => {
       ? "primary-button lap-button"
       : "primary-button reset-button";
 
-  console.log(isLapDisabled);
-
   return (
-    <section className='stopwatch'>
-      <div className='stopwatch__content'>
-        <div className='stopwatch__content timer--container'>
-          <p className='time-display'>{getFormattedTime(elasptime)}</p>
+    <section className="stopwatch">
+      <div className="stopwatch__content">
+        <div className="stopwatch__content timer--container">
+          <p className="time-display">{getFormattedTime(elasptime)}</p>
         </div>
-        <div className='stopwatch__content controller-container'>
+        <div className="stopwatch__content controller-container">
           {
             <button
               className={lapResetClass}
               disabled={isLapDisabled}
-              onClick={isTimerRunning ? insertLaps : resetLaps}
+              onClick={isTimerRunning ? addLaps : resetLaps}
             >
               {lapResetButtonText}
             </button>
@@ -72,17 +94,32 @@ const Stopwatch = () => {
           }
         </div>
       </div>
-      <div className='stopwatch__content lap-record__container'>
+      <div className="stopwatch__content lap-record__container">
         <table>
           <tbody>
-            {laps?.map((lap, index) => {
-              return (
-                <tr key={index}>
-                  <td>Lap {index + 1}</td>
-                  <td> {getFormattedTime(lap)} </td>
-                </tr>
-              );
-            })}
+            {lapData.laps[lapData.laps.length - 1]
+              ? lapData.laps.map((lap) => {
+                  return (
+                    <tr key={lap.currentLapNumber}>
+                      <td>Lap {lap.currentLapNumber} </td>
+                      <td>{getFormattedTime(lap.currentLapTime)}</td>
+                    </tr>
+                  );
+                })
+              : lapData.laps.map((lap) => {
+                  return (
+                    <tr key={lap.currentLapNumber}>
+                      <td>Lap {lap.currentLapNumber} </td>
+                      <td>{getFormattedTime(lapData.time)}</td>
+                    </tr>
+                  );
+                })}
+            {(isTimerRunning || elasptime > 0) && (
+              <tr>
+                <td>Lap {lapData.laps.length + 1} </td>
+                <td>{getFormattedTime(lapData.time)}</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
