@@ -97,23 +97,14 @@ const Stopwatch = () => {
       <div className="stopwatch__content lap-record__container">
         <table>
           <tbody>
-            {lapData.laps[lapData.laps.length - 1]
-              ? lapData.laps.map((lap) => {
-                  return (
-                    <tr key={lap.currentLapNumber}>
-                      <td>Lap {lap.currentLapNumber} </td>
-                      <td>{getFormattedTime(lap.currentLapTime)}</td>
-                    </tr>
-                  );
-                })
-              : lapData.laps.map((lap) => {
-                  return (
-                    <tr key={lap.currentLapNumber}>
-                      <td>Lap {lap.currentLapNumber} </td>
-                      <td>{getFormattedTime(lapData.time)}</td>
-                    </tr>
-                  );
-                })}
+            {lapData.laps.map((lap) => {
+              return (
+                <tr key={lap.currentLapNumber}>
+                  <td>Lap {lap.currentLapNumber} </td>
+                  <td>{getFormattedTime(lap.currentLapTime)}</td>
+                </tr>
+              );
+            })}
             {(isTimerRunning || elasptime > 0) && (
               <tr>
                 <td>Lap {lapData.laps.length + 1} </td>
