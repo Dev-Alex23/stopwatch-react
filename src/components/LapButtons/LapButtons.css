@@ -1,0 +1,60 @@
+.controller-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6875rem;
+  margin-top: 6.25rem;
+}
+.primary-button {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  outline: var(--bg-color) solid 1.5px;
+  outline-offset: -3px;
+}
+
+.primary-button:focus {
+  outline: var(--bg-color) solid 1.5px;
+  outline-offset: -3px;
+}
+
+.lap-button {
+  color: #fff;
+  background-color: var(--reset-btn-bg-color);
+}
+.lap-button:disabled {
+  color: #fff;
+  background-color: var(--lap-btn-bg-color);
+}
+.lap-button:active {
+  background-color: var(--reset-btn-active-color);
+}
+
+.start-button {
+  color: var(--start-btn-text-color);
+  background-color: var(--start-btn-bg-color);
+}
+.start-button:active {
+  background-color: var(--start-btn-active-color);
+}
+
+.stop-button {
+  background-color: var(--stop-btn-bg-color);
+  color: var(--stop-btn-text-color);
+}
+
+.stop-button:active {
+  background-color: var(--stop-btn-active-color);
+}
+
+.reset-button {
+  background-color: var(--reset-btn-bg-color);
+  color: var(--reset-btn-text-color);
+}
+
+.reset-button:active {
+  background-color: var(--reset-btn-active-color);
+}

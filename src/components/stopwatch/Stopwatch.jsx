@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import LapButtons from "../LapButtons/LapButtons";
+import Table from "../table/Table";
 import { getFormattedTime } from "../utils";
 import "./Stopwatch.css";
 
@@ -60,6 +62,7 @@ const Stopwatch = () => {
   };
 
   const toggleTimer = () => setIsTimerRunning(!isTimerRunning);
+  const addLapRestLaps = isTimerRunning ? addLaps : resetLaps;
 
   const isLapDisabled = !isTimerRunning && elapsedTime === 0;
   const startStopButtonText = isTimerRunning ? "Stop" : "Start";
@@ -79,52 +82,21 @@ const Stopwatch = () => {
         <div className="stopwatch__content timer--container">
           <p className="time-display">{getFormattedTime(elapsedTime)}</p>
         </div>
-        <div className="stopwatch__content controller-container">
-          {
-            <button
-              className={lapResetClass}
-              disabled={isLapDisabled}
-              onClick={isTimerRunning ? addLaps : resetLaps}
-            >
-              {lapResetButtonText}
-            </button>
-          }
-          {
-            <button className={startStopClass} onClick={toggleTimer}>
-              {startStopButtonText}
-            </button>
-          }
-        </div>
+        <LapButtons
+          isLapDisabled={isLapDisabled}
+          toggleTimer={toggleTimer}
+          addLapRestLaps={addLapRestLaps}
+          startStopButtonText={startStopButtonText}
+          lapResetButtonText={lapResetButtonText}
+          startStopClass={startStopClass}
+          lapResetClass={lapResetClass}
+        />
       </div>
-      <div className="stopwatch__content lap-record__container">
-        <table>
-          <tbody>
-            {lapData.laps?.map((lap, i) => {
-              return (
-                <tr
-                  key={`Lap-${i}-${lap}`}
-                  className={
-                    lapData.laps.length >= 2
-                      ? `${lapData.minLap === lap && "min-lap"} ${
-                          lapData.maxLap === lap && "max-lap"
-                        }`
-                      : ""
-                  }
-                >
-                  <td>Lap {i + 1} </td>
-                  <td>{getFormattedTime(lap)}</td>
-                </tr>
-              );
-            })}
-            {(isTimerRunning || elapsedTime > 0) && (
-              <tr>
-                <td>Lap {lapData.laps.length + 1} </td>
-                <td>{getFormattedTime(lapData.runningTime)}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <Table
+        lapData={lapData}
+        isTimerRunning={isTimerRunning}
+        elapsedTime={elapsedTime}
+      />
     </section>
   );
 };
