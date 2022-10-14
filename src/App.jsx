@@ -36,18 +36,6 @@ function App() {
     [state.isTimerRunning]
   );
 
-  const isLapDisabled = !state.isTimerRunning && state.elapsedTime === 0;
-  const startStopButtonText = state.isTimerRunning ? "Stop" : "Start";
-  const lapResetButtonText =
-    !state.isTimerRunning && state.elapsedTime > 0 ? "Reset" : "Lap";
-  const startStopClass = state.isTimerRunning
-    ? "primary-button stop-button"
-    : "primary-button start-button";
-  const lapResetClass =
-    state.isTimerRunning || state.elapsedTime === 0
-      ? "primary-button lap-button"
-      : "primary-button reset-button";
-
   return (
     <section className="stopwatch">
       <div className="stopwatch__content">
@@ -56,12 +44,9 @@ function App() {
         </div>
         <LapButtons
           toggleTimer={toggleTimer}
-          isLapDisabled={isLapDisabled}
           addLapResetLaps={addLapResetLaps}
-          lapResetButtonText={lapResetButtonText}
-          lapResetClass={lapResetClass}
-          startStopButtonText={startStopButtonText}
-          startStopClass={startStopClass}
+          isTimerRunning={state.isTimerRunning}
+          elapsedTime={state.elapsedTime}
         />
       </div>
       <Table
