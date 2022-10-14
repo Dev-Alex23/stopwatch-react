@@ -8,7 +8,7 @@ const LapButtons = ({
   startStopClass,
   toggleTimer,
   startStopButtonText,
-  addLapRestLaps,
+  addLapResetLaps,
 }) => {
   return (
     <div className="stopwatch__content controller-container">
@@ -16,7 +16,7 @@ const LapButtons = ({
         <button
           className={lapResetClass}
           disabled={isLapDisabled}
-          onClick={addLapRestLaps}
+          onClick={addLapResetLaps}
         >
           {lapResetButtonText}
         </button>
